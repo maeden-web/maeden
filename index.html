@@ -714,6 +714,16 @@ html[data-theme="dark"]{
   }
   .hero-lead,.hero h1,.hero-eyebrow{text-shadow:none}
 }
+
+/* 10) 画面の縦が短い端末（横向き・小型機）でも、
+      SERVICE AREA の行が下の電話バーに隠れないように詰める */
+@media (max-width:768px) and (max-height:700px){
+  .hero-inner{padding-top:calc(var(--hd) + 10px)}
+  .hero h1{font-size:clamp(27px,7.2vw,40px);margin:12px 0 10px}
+  .hero-lead{line-height:1.75}
+  .hero-cta{margin-top:16px}
+  .hero-note{margin-top:10px}
+}
 </style>
 </head>
 <body class="gridpaper">
