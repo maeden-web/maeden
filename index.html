@@ -640,6 +640,55 @@ html[data-theme="dark"]{
   .fadeup,.reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
+
+/* ============================================================
+   見やすさの是正（2026-07 レイアウト再評価）
+   ・図面線の上に文字が乗って読みにくい点を改善
+   ・SVG注記文字が本文／ボタンに被る点を解消
+   ・固定コールバーで主要ボタンが隠れる点を解消
+   ============================================================ */
+
+/* 1) 山の図面を少し控えめにして、本文の可読性を確保 */
+.hero-art{opacity:.58}
+[data-theme="dark"] .hero-art{opacity:.5}
+
+/* 2) 本文・注記に紙色のハローを付け、線の上でも文字が沈まないように */
+.hero-lead,.hero-note,.hero-eyebrow{
+  text-shadow:0 0 4px var(--paper),0 0 8px var(--paper),0 0 14px var(--paper);
+}
+.hero h1{text-shadow:0 0 10px var(--paper),0 0 20px var(--paper)}
+
+/* 3) 表題欄：「設計・施工」「SCALE : N.S.」の不自然な折り返しを防ぐ */
+.tblock td{white-space:nowrap}
+.tblock .k{width:auto}
+
+/* 4) フッターのリンクはタップしやすい高さを確保 */
+.ft-nav a{display:inline-block;padding:9px 0}
+
+@media (max-width:768px){
+  /* 5) 装飾のSVG注記は、狭い画面では本文やボタンに被るため非表示 */
+  #mSvg .m-anno,#mSvg .m-anno-jp,#mSvg .m-anno-jp-s{display:none}
+
+  /* 6) 画面下の固定電話バーで「施工メニューを見る」等が隠れないよう余白を確保 */
+  .hero-inner{
+    padding-top:calc(var(--hd) + clamp(18px,4vh,44px));
+    padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  }
+  .hero h1{font-size:clamp(31px,8.2vw,52px);margin:18px 0 16px}
+  .hero-cta{margin-top:24px}
+
+  /* 7) 英字の見出しが1語だけ折り返すのを防ぐ */
+  .hero-eyebrow{letter-spacing:.15em;font-size:10.5px}
+  .hero-eyebrow::before{width:28px}
+
+  /* 8) ヘッダーの電話ボタンもタップしやすい高さに */
+  .hd-tel{padding:9px 13px}
+}
+
+@media (max-width:480px){
+  .hero-inner{padding-left:22px;padding-right:22px}
+  .hero-lead{font-size:14px}
+}
 </style>
 </head>
 <body class="gridpaper">
