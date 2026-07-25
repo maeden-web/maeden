@@ -689,6 +689,31 @@ html[data-theme="dark"]{
   .hero-inner{padding-left:22px;padding-right:22px}
   .hero-lead{font-size:14px}
 }
+
+/* 9) 図面の線が文字を横切る問題を、紙色の下地で確実に解消
+      （影だけでは太い地盤線を隠しきれないため） */
+.hero-note{
+  display:inline-block;
+  background:var(--paper);
+  padding:5px 12px;
+  margin-left:-12px;
+  text-shadow:none;
+}
+@media (min-width:769px){
+  /* 本文の背後だけに紙色を敷く。右側は透明にして図面を見せたまま。
+     枠線（hero-frame）を消さないよう、上下左端は余白を残す */
+  .hero-inner::before{
+    content:"";
+    position:absolute;z-index:-1;pointer-events:none;
+    left:0;right:0;top:66px;bottom:26px;
+    background:linear-gradient(100deg,
+      transparent 0 26px,
+      var(--paper) 70px,
+      var(--paper) 44%,
+      transparent 72%);
+  }
+  .hero-lead,.hero h1,.hero-eyebrow{text-shadow:none}
+}
 </style>
 </head>
 <body class="gridpaper">
