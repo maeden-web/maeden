@@ -379,7 +379,7 @@ h1,h2,h3,h4{font-feature-settings:"palt";line-height:1.4}
 .ev-art{position:relative}
 .ev-art .cap{
   font-family:var(--mono);font-size:10px;letter-spacing:.2em;
-  color:rgba(214,230,244,.55);margin-top:14px;display:flex;justify-content:space-between;
+  color:rgba(214,230,244,.68);margin-top:14px;display:flex;justify-content:space-between;
 }
 .e-line{fill:none;stroke:var(--bp-line);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .e-thin{fill:none;stroke:rgba(214,230,244,.66);stroke-width:1.2;stroke-linecap:round}
@@ -503,7 +503,7 @@ h1,h2,h3,h4{font-feature-settings:"palt";line-height:1.4}
   display:flex;gap:14px;font-size:13px;color:rgba(214,230,244,.8);
   border-top:1px dashed rgba(214,230,244,.28);padding-top:12px;
 }
-.ct-list .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:rgba(214,230,244,.55);min-width:86px;padding-top:3px}
+.ct-list .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:rgba(214,230,244,.68);min-width:86px;padding-top:3px}
 .tel-panel{
   background:var(--paper);color:var(--ink);
   border:1.5px solid var(--ink);
@@ -547,7 +547,7 @@ h1,h2,h3,h4{font-feature-settings:"palt";line-height:1.4}
 .ft-bar{
   margin-top:46px;border-top:1px solid rgba(214,230,244,.15);
   padding:16px 0;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
-  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(214,230,244,.45);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:rgba(214,230,244,.62);
 }
 
 /* ============ mobile call bar ============ */
@@ -715,6 +715,61 @@ html[data-theme="dark"]{
   .hero-lead,.hero h1,.hero-eyebrow{text-shadow:none}
 }
 
+/* ============================================================
+   デザイン統一（カード類のトーンを揃える）
+   ・.rsn / .svc / .sub / FAQ で枠線の太さと色がバラバラだったため統一
+   ・後から足した #subsidy と #faq を既存の作法に合わせる
+   ============================================================ */
+
+/* 1) 補助金カードに、選ばれる理由と同じ「隅の当たり」を付けて統一 */
+.sub::before,.sub::after{
+  content:"";position:absolute;width:10px;height:10px;
+  border:1.5px solid var(--accent);opacity:0;transition:opacity .3s;
+}
+.sub::before{top:-1.5px;left:-1.5px;border-right:0;border-bottom:0}
+.sub::after{bottom:-1.5px;right:-1.5px;border-left:0;border-top:0}
+.sub:hover::before,.sub:hover::after{opacity:1}
+
+/* 2) 見出しの大きさを .rsn h3 と揃える */
+.sub h3{font-size:19px}
+
+/* 3) FAQ：枠線が「1.5px + 薄い色」で他と不整合だったため、
+      項目数の多い .svc と同じ作法（1px + 薄い色 + hoverで濃く）に */
+.faq-list{display:grid;gap:12px;max-width:900px}
+.faq-item{
+  border:1px solid var(--line);background:var(--card-bg);
+  padding:16px 22px;transition:border-color .25s;
+}
+.faq-item:hover,.faq-item[open]{border-color:var(--ink)}
+.faq-item summary{
+  font-weight:900;font-size:15px;cursor:pointer;
+  letter-spacing:.03em;line-height:1.7;
+}
+.faq-item summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.faq-item p{margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2}
+
+/* 4) カード間の余白を4の倍数の同じ刻みに揃える（26px/22px → 24px） */
+.rsn-grid{gap:24px}
+.flow{gap:24px}
+@media (max-width:768px){ .flow{gap:0} }
+
+/* ============ ヘッダー：項目が増えても折り返さないように ============ */
+.gnav a{white-space:nowrap}
+.hd-tel .n,.hd-tel .t{white-space:nowrap}
+.brand-name,.brand-sub{white-space:nowrap}
+@media (min-width:769px){
+  .gnav{gap:18px;font-size:13px}
+  .header .wrap{gap:20px}
+}
+@media (max-width:1150px){
+  .gnav{gap:13px;font-size:12px}
+  .header .wrap{gap:14px}
+  .brand-sub{display:none}
+}
+@media (max-width:1000px){
+  .gnav{display:none}
+}
+
 /* ============ 補助金セクション ============ */
 .sub-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .sub{
@@ -807,8 +862,7 @@ html[data-theme="dark"]{
       <span class="fadeup" style="--d:.45s;display:block">丁寧に引く。</span>
     </h1>
     <p class="hero-lead fadeup" style="--d:.65s">
-      武甲山のふもと・秩父市で、住まいの電気工事と水まわりリフォームを一貫対応。
-      配線も配管も、暮らしを流れる大切な一本。その一本一本を、地元の職人が責任を持って引きます。
+      武甲山のふもと・秩父市で、住まいの電気工事と水まわりリフォームを一貫対応。配線も配管も、暮らしを流れる大切な一本。その一本一本を、地元の職人が責任を持って引きます。
     </p>
     <div class="hero-cta fadeup" style="--d:.85s">
       <a class="btn-tel" href="tel:0494251126">
@@ -940,10 +994,7 @@ html[data-theme="dark"]{
           <li>東京電力への申請代行</li>
         </ul>
         <p class="ev-body">
-          電気自動車・PHEVの普及にともない、ご自宅への充電用コンセント新設のご依頼が増えています。
-          分電盤からの専用回路の増設、カーポートや駐車場の位置に合わせた配線ルートのご提案、
-          屋外での防水施工、電力会社への申請まで——電気工事士がまとめて対応します。
-          「うちの駐車場でも付けられる？」という段階のご相談も歓迎です。
+          電気自動車・PHEVの普及にともない、ご自宅への充電用コンセント新設のご依頼が増えています。分電盤からの専用回路の増設、カーポートや駐車場の位置に合わせた配線ルートのご提案、屋外での防水施工、電力会社への申請まで——電気工事士がまとめて対応します。「うちの駐車場でも付けられる？」という段階のご相談も歓迎です。
         </p>
         <a class="btn-tel bp-btn" href="tel:0494251126">
           <span class="t">EV工事のご相談はお電話で</span>
@@ -1193,12 +1244,10 @@ html[data-theme="dark"]{
 <section class="sec" id="subsidy">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="sec-tag"><span class="no">2026</span>SUBSIDY PROGRAM</div>
+      <div class="sec-tag"><span class="no">DWG-04</span>SUBSIDY PROGRAM</div>
       <h2>補助金を使った工事も、<br>おまかせください。</h2>
       <p class="sec-lead">
-        給湯器・エコキュートの交換、トイレやお風呂の水まわりリフォーム、EVコンセントの設置には、
-        国や秩父市の補助制度が使える場合があります。マエデンは<strong>申請の手続きまで対応</strong>しますので、
-        「使えるかどうか分からない」という段階でお気軽にご相談ください。
+        給湯器・エコキュートの交換、トイレやお風呂の水まわりリフォーム、EVコンセントの設置には、国や秩父市の補助制度が使える場合があります。マエデンは<strong>申請の手続きまで対応</strong>しますので、「使えるかどうか分からない」という段階でお気軽にご相談ください。
       </p>
     </div>
 
@@ -1267,7 +1316,7 @@ html[data-theme="dark"]{
 <section class="sec" id="flow">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="sec-tag"><span class="no">DWG-04</span>WORK FLOW</div>
+      <div class="sec-tag"><span class="no">DWG-05</span>WORK FLOW</div>
       <h2>ご依頼の流れ</h2>
       <p class="sec-lead">お電話一本から、お引き渡しまで。はじめての方も、この4ステップです。</p>
     </div>
@@ -1301,38 +1350,38 @@ html[data-theme="dark"]{
 <section class="sec" id="faq">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="sec-tag"><span class="no">FAQ</span>FREQUENTLY ASKED QUESTIONS</div>
+      <div class="sec-tag"><span class="no">DWG-06</span>FREQUENTLY ASKED QUESTIONS</div>
       <h2>よくあるご質問</h2>
       <p class="sec-lead">秩父市・横瀬町・皆野町・長瀞町・小鹿野町・寄居町のお客さまから、よくいただくご質問です。</p>
     </div>
-    <div class="reveal" style="display:grid;gap:12px;max-width:900px">
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. EVコンセント（EV充電器）の設置工事はできますか？費用は？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">はい。EVコンセント工事（200V専用回路の増設、屋外用防水コンセント、東京電力への申請代行まで）に対応しています。分電盤から駐車場までの配線ルートで費用が変わるため、現地調査・お見積りは無料でご案内します。秩父市・横瀬町・皆野町・長瀞町・小鹿野町・寄居町へ伺います。</p>
+    <div class="reveal faq-list">
+      <details class="faq-item">
+        <summary>Q. EVコンセント（EV充電器）の設置工事はできますか？費用は？</summary>
+        <p>はい。EVコンセント工事（200V専用回路の増設、屋外用防水コンセント、東京電力への申請代行まで）に対応しています。分電盤から駐車場までの配線ルートで費用が変わるため、現地調査・お見積りは無料でご案内します。秩父市・横瀬町・皆野町・長瀞町・小鹿野町・寄居町へ伺います。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. エコキュートや給湯器（石油・ガス）の交換もお願いできますか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">対応しています。マエデンは電気工事と水まわりの両方に対応しているため、エコキュートのように「電気と水の両方が絡む工事」も、業者を分けずにまとめてご依頼いただけます。石油給湯器・ガス給湯器の交換も承ります。</p>
+      <details class="faq-item">
+        <summary>Q. エコキュートや給湯器（石油・ガス）の交換もお願いできますか？</summary>
+        <p>対応しています。マエデンは電気工事と水まわりの両方に対応しているため、エコキュートのように「電気と水の両方が絡む工事」も、業者を分けずにまとめてご依頼いただけます。石油給湯器・ガス給湯器の交換も承ります。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. 分電盤やブレーカーの交換、コンセントの増設もできますか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">はい。分電盤交換・ブレーカー交換・コンセント増設・専用回路の増設など、住まいの電気工事一式に対応します。「ブレーカーがよく落ちる」「コンセントを増やしたい」といったご相談も歓迎です。</p>
+      <details class="faq-item">
+        <summary>Q. 分電盤やブレーカーの交換、コンセントの増設もできますか？</summary>
+        <p>はい。分電盤交換・ブレーカー交換・コンセント増設・専用回路の増設など、住まいの電気工事一式に対応します。「ブレーカーがよく落ちる」「コンセントを増やしたい」といったご相談も歓迎です。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. エアコン・アンテナ・防犯カメラ・LED照明の工事もできますか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">対応しています。エアコンの取付・移設・専用回路の増設、テレビアンテナの新設・調整、防犯カメラの設置・配線、照明のLED化・交換、有線LANの配線まで、幅広く承ります。</p>
+      <details class="faq-item">
+        <summary>Q. エアコン・アンテナ・防犯カメラ・LED照明の工事もできますか？</summary>
+        <p>対応しています。エアコンの取付・移設・専用回路の増設、テレビアンテナの新設・調整、防犯カメラの設置・配線、照明のLED化・交換、有線LANの配線まで、幅広く承ります。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. トイレ・お風呂・キッチンなど、水まわりのリフォームもできますか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">はい。トイレの交換、ユニットバスへの入替、システムキッチンの入替、洗面化粧台の交換、レンジフード（換気扇）の交換など、水まわりリフォーム一式に対応します。電気の配線も同時にできるのが強みです。</p>
+      <details class="faq-item">
+        <summary>Q. トイレ・お風呂・キッチンなど、水まわりのリフォームもできますか？</summary>
+        <p>はい。トイレの交換、ユニットバスへの入替、システムキッチンの入替、洗面化粧台の交換、レンジフード（換気扇）の交換など、水まわりリフォーム一式に対応します。電気の配線も同時にできるのが強みです。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. エコキュートやリフォームの補助金は使えますか？申請もお願いできますか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">はい。給湯省エネ2026事業（エコキュート・給湯器）、みらいエコ住宅2026事業（節水トイレ・高断熱浴槽・レンジフードなど）、EV充電用コンセントの補助、秩父市独自の補助制度などがご利用いただける場合があり、<strong>申請の手続きまで当店で対応します</strong>。なお制度によっては、交付決定より前に工事を始めると対象外になるため、<strong>着工前にご相談ください</strong>。予算の上限に達すると受付期間内でも終了します。</p>
+      <details class="faq-item">
+        <summary>Q. エコキュートやリフォームの補助金は使えますか？申請もお願いできますか？</summary>
+        <p>はい。給湯省エネ2026事業（エコキュート・給湯器）、みらいエコ住宅2026事業（節水トイレ・高断熱浴槽・レンジフードなど）、EV充電用コンセントの補助、秩父市独自の補助制度などがご利用いただける場合があり、<strong>申請の手続きまで当店で対応します</strong>。なお制度によっては、交付決定より前に工事を始めると対象外になるため、<strong>着工前にご相談ください</strong>。予算の上限に達すると受付期間内でも終了します。</p>
       </details>
-      <details style="border:1.5px solid var(--line);background:var(--card-bg);padding:16px 22px">
-        <summary style="font-weight:900;font-size:15px;cursor:pointer;letter-spacing:.03em">Q. 対応エリアはどこまでですか？現地調査や見積りは無料ですか？</summary>
-        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:2">秩父市を中心に、横瀬町・皆野町・長瀞町・小鹿野町・寄居町など周辺地域へ伺います（エリア外もまずはご相談ください）。現地調査・お見積りは無料で、ご納得いただいてから着工します。お見積り後のキャンセルも可能です。</p>
+      <details class="faq-item">
+        <summary>Q. 対応エリアはどこまでですか？現地調査や見積りは無料ですか？</summary>
+        <p>秩父市を中心に、横瀬町・皆野町・長瀞町・小鹿野町・寄居町など周辺地域へ伺います（エリア外もまずはご相談ください）。現地調査・お見積りは無料で、ご納得いただいてから着工します。お見積り後のキャンセルも可能です。</p>
       </details>
     </div>
   </div>
@@ -1373,7 +1422,7 @@ html[data-theme="dark"]{
   <div class="wrap">
     <div class="ct-grid">
       <div class="ct-copy reveal">
-        <div class="sec-tag"><span class="no">DWG-05</span>CONTACT</div>
+        <div class="sec-tag"><span class="no">DWG-07</span>CONTACT</div>
         <h2>まずは、お気軽に<br>お電話ください。</h2>
         <p class="sec-lead">「これって頼めるかな？」という段階でも大丈夫です。現地調査・お見積りは無料。秩父市内なら、すぐに伺えます。</p>
         <ul class="ct-list">
